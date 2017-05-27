@@ -1,15 +1,30 @@
 'use strict';
 
-var queryBazFunc = require('./functions/baz/query.js');
+var queryProductsFunc = require('./functions/products/query.js');
+var getProductsFunc = require('./functions/products/get.js');
 
-module.exports.queryBaz = (event, context, callback) => {
+// get all products
+module.exports.queryProducts = (event, context, callback) => {
   // var response = 'Your Serverless function ran successfully via the \''
   //   + event.httpMethod
   //   + '\' method!';
   //
   // return callback(null, response);
 
-  queryBazFunc(event, (error, result) => {
+  queryProductsFunc(event, (error, result) => {
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify(result),
+    };
+    context.succeed(response);
+  });
+};
+// get product by ID
+module.exports.getProduct = (event, context, callback) => {
+  getProductsFunc(event, (error, result) => {
     const response = {
       statusCode: 200,
       headers: {

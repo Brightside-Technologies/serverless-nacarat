@@ -36,12 +36,36 @@ provider:
 
 functions:
   query:
-    handler: handler.queryBaz
+    handler: handler.queryProducts
     events:
       - http:
-          path: /baz
+          path: /products
+          method: GET
+  get:
+    handler: handler.getProduct
+    events:
+      - http:
+          path: /products/{id}
           method: GET
 
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
 
 
 
