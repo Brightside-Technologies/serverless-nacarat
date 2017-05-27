@@ -1,0 +1,11 @@
+{
+  "name": "nacarat",
+  "version": "1.0.0",
+  "description": "serverless nacarat",
+  "dependencies": {
+    "aws-sdk": "^2.12.0",
+    "serverless-dynamodb-local": "^0.2.21",
+    "serverless-offline": "^3.14.0",
+    "uuid": "^2.0.3"
+  }
+}
