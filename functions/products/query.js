@@ -13,7 +13,7 @@ const dynamoDb = require('../../dynamoDb');
 //   callback(null, response);
 // };
 
-module.exports = (event, context, callback) => {
+module.exports.query = (event, context, callback) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
   };
@@ -26,7 +26,7 @@ module.exports = (event, context, callback) => {
       callback(new Error('Couldn\'t get all products.'));
       return;
     }
-    
+
     // create a response
     const response = {
       statusCode: 200,

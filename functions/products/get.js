@@ -2,7 +2,7 @@
 
 const dynamoDb = require('../../dynamoDb');
 
-module.exports = (event, callback) => {
+module.exports.get = (event, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({

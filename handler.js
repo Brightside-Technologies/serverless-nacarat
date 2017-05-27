@@ -1,10 +1,12 @@
 'use strict';
 
 var queryProductsFunc = require('./functions/products/query.js');
-var getProductsFunc = require('./functions/products/get.js');
+var getProductFunc = require('./functions/products/get.js');
+var createProductFunc = require('./functions/products/get.js');
 
 // get all products
 module.exports.queryProducts = (event, context, callback) => {
+
   // var response = 'Your Serverless function ran successfully via the \''
   //   + event.httpMethod
   //   + '\' method!';
@@ -24,11 +26,24 @@ module.exports.queryProducts = (event, context, callback) => {
 };
 // get product by ID
 module.exports.getProduct = (event, context, callback) => {
-  getProductsFunc(event, (error, result) => {
+  getProductFunc(event, (error, result) => {
     const response = {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify(result),
+    };
+    context.succeed(response);
+  });
+};
+// create products
+module.exports.createProduct = (event, context, callback) => {
+  createProductFunc(event, (error, result) => {
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin" : "*"
       },
       body: JSON.stringify(result),
     };
