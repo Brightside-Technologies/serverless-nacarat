@@ -3,7 +3,7 @@
 const uuid = require('uuid');
 const dynamoDb = require('../../dynamoDb');
 
-module.exports.create = (event, context, callback) => {
+module.exports = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
   if (typeof data.text !== 'string') {

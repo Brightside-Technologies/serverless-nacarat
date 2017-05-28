@@ -13,7 +13,7 @@ const dynamoDb = require('../../dynamoDb');
 //   callback(null, response);
 // };
 
-module.exports.query = (event, context, callback) => {
+module.exports = (event, context, callback) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
   };
