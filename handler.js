@@ -12,7 +12,7 @@ module.exports.queryProducts = (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify(result),
+      body: JSON.stringify(result)
     };
     context.succeed(response);
   });
