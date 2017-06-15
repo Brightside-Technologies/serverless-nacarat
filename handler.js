@@ -6,13 +6,6 @@ var createProductFunc = require('./functions/products/get.js');
 
 // get all products
 module.exports.queryProducts = (event, context, callback) => {
-
-  // var response = 'Your Serverless function ran successfully via the \''
-  //   + event.httpMethod
-  //   + '\' method!';
-  //
-  // return callback(null, response);
-
   queryProductsFunc(event, (error, result) => {
     const response = {
       statusCode: 200,
@@ -37,7 +30,7 @@ module.exports.getProduct = (event, context, callback) => {
     context.succeed(response);
   });
 };
-// create products
+// create product
 module.exports.createProduct = (event, context, callback) => {
   createProductFunc(event, (error, result) => {
     const response = {

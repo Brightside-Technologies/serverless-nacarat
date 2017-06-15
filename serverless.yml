@@ -3,35 +3,15 @@ service: nacarat
 frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
-  - serverless-dynamodb-local
   - serverless-offline
 
 custom:
   serverless-offline:
     #port: 4001
-  dynamodb:
-    start:
-      port: 8000
-      inMemory: true
-      migration: true
-    migration:
-      dir: offline/migrations
 
 provider:
   name: aws
   runtime: nodejs6.10
-  environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
   query:
@@ -40,12 +20,14 @@ functions:
       - http:
           path: /products
           method: GET
+          cors: true
   get:
     handler: handler.getProduct
     events:
       - http:
           path: /products/{id}
           method: GET
+          cors: true
   create:
     handler: handler.createProduct
     events:
@@ -53,27 +35,6 @@ functions:
           path: /products
           method: POST
           cors: true
-
-resources:
-  Resources:
-    ProductsTable:
-      Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
-
-
-
-
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

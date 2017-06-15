@@ -1,14 +1,18 @@
 'use strict';
 
-const dynamoDb = require('../../dynamoDb');
+const Firebase = require('../../firebase').firebase;
+const firebase = new Firebase();
 
 module.exports = (event, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'GET product by ID',
-      input: event,
-    }),
-  };
-  callback(null, response);
+  firebase.get("/products/" + event.pathParameters.id)
+    .then(product => {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({
+          data: product,
+          input: event,
+        }),
+      };
+      callback(null, response);
+    })
 };
