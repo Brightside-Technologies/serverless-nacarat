@@ -1,5 +1,4 @@
 const https = require('https');
-//const firebaseHost = 'nacarat-2be74.firebaseio.com';
 const env = require('env2')('.env')
 
 module.exports.firebase = function(){
